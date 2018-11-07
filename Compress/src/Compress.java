@@ -1,23 +1,19 @@
 import java.io.*;
+import java.nio.file.Files;
 
 public class Compress {
     public static void main(String[] args){
-        String file = args[0];
-        byte [] buffer;
-        File a_file = new File(file);
+        File file = new File(args[0]);
+        File toPath = new File(args[0].concat(".huff"));
         try{
-            FileInputStream inputStream = new FileInputStream(file);
-            buffer = new byte[(int)a_file.length()];
-	    int bytesRead;
-	    ByteArrayOutputStream byteOut = new ByteArrayOutputStream();
-
-	    while ((bytesRead = inputStream.read(buffer)) != -1){
-		byteOut.write(buffer, 0, bytesRead);
-	    }
-            
-            inputStream.close();
-	    System.out.println(buffer);
-            
+            //FileOutputStream foi = new FileOutputStream(toPath);
+            //ByteArrayOutputStream boi = new ByteArrayOutputStream(foi);
+            byte [] buffer = Files.readAllBytes(file.toPath());
+            for (int i=0; i < buffer.length; i++){
+                System.out.println((char)buffer[i]);
+                //oi.write(buffer[i]);
+            }
+            //oi.close();
         } catch(FileNotFoundException ex){
             System.out.println("Unable to open file: " + file);
         }
