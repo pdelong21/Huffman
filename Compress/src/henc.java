@@ -1,7 +1,7 @@
 import java.io.*;
 import java.nio.file.Files;
 
-public class Compress {
+public class henc {
     public static void main(String[] args){
         File file = new File(args[0]);
         File toPath = new File(args[0].concat(".huff"));
