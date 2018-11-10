@@ -12,10 +12,18 @@ public class henc {
 
             byte [] buffer = Files.readAllBytes(file.toPath());
             CollectFreq freq = new CollectFreq(buffer); // Build frequency table i.e two unsorted int arrays
+            int[] Q;
+            Q = Huffman(freq);
+
+
 
             for (int i = 0; i < freq.uchars.length; i++){
                 System.out.println("U = " + Integer.toBinaryString(freq.uchars[i] & 0xFF)  + ", F = " + freq.fchars[i]);
                 //String.format("%8s", Integer.toBinaryString(freq.uchars[i] & 0xFF)).replace(' ','0')
+            }
+            for (var i:Q
+                 ) {
+                System.out.println(i);
             }
 
         } catch(FileNotFoundException ex){
@@ -26,26 +34,39 @@ public class henc {
         }
     }
 
-    public PriorityQueue Huffman(CollectFreq freq){
-        PriorityQueue Q = new PriorityQueue();
+    public static int[] Huffman(CollectFreq freq){
+        int[] Q;
+        Q = freq.fchars;
         Q = BuildMinHeap(Q, freq);
+        return Q;
     }
 
-    public PriorityQueue BuildMinHeap(PriorityQueue Q, CollectFreq freq){
-        for (int i =(int)Math.floor(freq.fchars.length/2.0); i>=1; i--){
-            Q = MinHeapify(freq, i);
+    public static int[] BuildMinHeap(int[] Q, CollectFreq freq){
+        for (int i =(int)Math.floor(Q.length/2.0); i>0; i--){
+            Q = MinHeapify(Q, i);
         }
         return Q;
     }
-    public PriorityQueue MinHeapify(CollectFreq freq, int i){
+    public static int[] MinHeapify(int[] Q, int i){
         int left = i - 1, right = i + 1;
-        int min = FindMin(i, left, right, freq);
-        if (min != i)
+        int min = FindMin(i, left, right, Q);
+        if (min != i){
+            int exchange = Q[i];
+            Q[i] = Q[min];
+            Q[min] = exchange;
+            MinHeapify(Q, min);
+        }
+        return Q;
     }
-    public int FindMin(int i, int j, int k, CollectFreq freq){
-        int min = freq.fchars[i];
-        if (min >= j) min = j;
-        if (min >= k) min = k;
-        return min;
+    public static int FindMin(int i, int j, int k, int[] Q){
+        int min = Q[i];
+        int indexofmin = i;
+        if (min >= Q[j]){
+            min = Q[j];
+            indexofmin=j;
+        }
+        if (min >= Q[k]) indexofmin = k;
+
+        return indexofmin;
     }
 }
