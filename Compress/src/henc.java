@@ -1,17 +1,13 @@
 import java.io.*;
-import java.nio.file.Files;
 
 public class henc {
     public static void main(String[] args){
         File file = new File(args[0]);
         File toPath = new File(args[0].concat(".huff"));
 
-        try{
-
-            byte [] buffer = Files.readAllBytes(file.toPath());
+            byte [] buffer = toByteArray(file);
             CollectFreq freq = new CollectFreq(buffer); // Build frequency table i.e two unsorted int arrays
             int[] Q;
-
 
 
             for (int i = 0; i < freq.uchars.length; i++){
@@ -25,12 +21,25 @@ public class henc {
                 System.out.println(i);
             }
 
-        } catch(FileNotFoundException ex){
+
+
+    }
+
+    public static byte[] toByteArray(File file){
+        byte[] barray = new byte[(int) file.length()];
+
+        try{
+            FileInputStream is = new FileInputStream(file);
+            is.read(barray);
+            is.close();
+
+        } catch(FileNotFoundException e){
             System.out.println("Unable to open file: " + file);
-        }
-        catch (IOException ex){
+        } catch (IOException e){
             System.out.println("Error reading file + " + file);
         }
+        return barray;
+
     }
 
     public static int[] Huffman(CollectFreq freq){
@@ -52,7 +61,7 @@ public class henc {
         int min = FindMin(i, left, right, Q);
         if (min != i){
             Q = Swap(i, min, Q);
-            Q = MinHeapify(Q, min);
+            Q = MinHeapify(Q, i);
         }
         return Q;
     }
