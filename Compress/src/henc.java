@@ -1,7 +1,5 @@
 import java.io.*;
 import java.nio.file.Files;
-import java.util.PriorityQueue;
-import java.math.*;
 
 public class henc {
     public static void main(String[] args){
@@ -13,7 +11,6 @@ public class henc {
             byte [] buffer = Files.readAllBytes(file.toPath());
             CollectFreq freq = new CollectFreq(buffer); // Build frequency table i.e two unsorted int arrays
             int[] Q;
-            Q = Huffman(freq);
 
 
 
@@ -21,6 +18,8 @@ public class henc {
                 System.out.println("U = " + Integer.toBinaryString(freq.uchars[i] & 0xFF)  + ", F = " + freq.fchars[i]);
                 //String.format("%8s", Integer.toBinaryString(freq.uchars[i] & 0xFF)).replace(' ','0')
             }
+            Q = Huffman(freq);
+
             for (var i:Q
                  ) {
                 System.out.println(i);
@@ -44,6 +43,7 @@ public class henc {
     public static int[] BuildMinHeap(int[] Q, CollectFreq freq){
         for (int i =(int)Math.floor(Q.length/2.0); i>0; i--){
             Q = MinHeapify(Q, i);
+
         }
         return Q;
     }
@@ -51,22 +51,22 @@ public class henc {
         int left = i - 1, right = i + 1;
         int min = FindMin(i, left, right, Q);
         if (min != i){
-            int exchange = Q[i];
-            Q[i] = Q[min];
-            Q[min] = exchange;
-            MinHeapify(Q, min);
+            Q = Swap(i, min, Q);
+            Q = MinHeapify(Q, min);
         }
         return Q;
     }
-    public static int FindMin(int i, int j, int k, int[] Q){
-        int min = Q[i];
-        int indexofmin = i;
-        if (min >= Q[j]){
-            min = Q[j];
-            indexofmin=j;
-        }
-        if (min >= Q[k]) indexofmin = k;
+    public static int FindMin(int i, int left, int right, int[] Q){
+        if (Q[i] < Q[left] && Q[i] < Q[right]) return i;
+        if (Q[i] > Q[left] && Q[left] < Q[right]) return left;
+        if (Q[i] > Q[right] && Q[right] < Q[left]) return right;
+        return i; // By chance all the values are equal to one another
 
-        return indexofmin;
+    }
+    public static int[] Swap(int i, int min, int[] Q){
+        int swap = Q[i];
+        Q[i] = Q[min];
+        Q[min] = swap;
+        return Q;
     }
 }
