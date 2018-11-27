@@ -7,20 +7,31 @@ public class henc {
 
         byte [] buffer = toByteArray(file);
         CollectFreq freq = new CollectFreq(buffer); // Build frequency table i.e two unsorted int arrays
-        //int[] Q;
-        MinHeap Q = new MinHeap(freq.fchars.length);
+
+        // Construct Bin Heap, really just an array of nodes
+        BinHeap X = new BinHeap(freq.fchars.length);
         for (int i = 0; i < freq.uchars.length; i++){
             //System.out.println("U = " + Integer.toBinaryString(freq.uchars[i] & 0xFF)  + ", F = " + freq.fchars[i]);
-            Q.Heap[i] = new Node(freq.fchars[i], (char)freq.uchars[i]);
+            X.Heap[i] = new Node(freq.fchars[i], (char)freq.uchars[i]);
             //String.format("%8s", Integer.toBinaryString(freq.uchars[i] & 0xFF)).replace(' ','0')
         }
-        //Q = Huffman(freq);
-
-        for (var i:Q.Heap
+        for (var i:X.Heap
         ) {
-            System.out.println(i.freq);
+            System.out.print(i.freq);
+            System.out.print(":");
             System.out.println(i.ch);
         }
+        System.out.println();
+        X = Huffman(X);
+
+        for (var i:X.Heap
+        ) {
+            System.out.print(i.freq);
+            System.out.print(":");
+            System.out.println(i.ch);
+        }
+
+
     }
 
     public static byte[] toByteArray(File file){
@@ -40,21 +51,19 @@ public class henc {
 
     }
 
-    public static int[] Huffman(CollectFreq freq){
-        int[] Q;
-        Q = freq.fchars;
-        Q = BuildMinHeap(Q, freq);
-        return Q;
+    public static BinHeap Huffman(BinHeap X){
+        X.BuildMinHeap(X);
+        return X;
     }
-
-    public static int[] BuildMinHeap(int[] Q, CollectFreq freq){
-        for (int i =(int)Math.floor(Q.length/2.0); i>0; i--){
+/*
+    public static BinHeap BuildMinHeap(BinHeap Q, BinHeap X){
+        for (int i =(int)Math.floor(X.Heap.length/2.0); i>=1; i--){
             Q = MinHeapify(Q, i);
 
         }
         return Q;
     }
-    public static int[] MinHeapify(int[] Q, int i){
+    public static BinHeap MinHeapify(BinHeap Q, int i){
         int left = i - 1, right = i + 1;
         int min = FindMin(i, left, right, Q);
         if (min != i){
@@ -76,4 +85,5 @@ public class henc {
         Q[min] = swap;
         return Q;
     }
+    */
 }
