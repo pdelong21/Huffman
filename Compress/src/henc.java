@@ -5,24 +5,22 @@ public class henc {
         File file = new File(args[0]);
         File toPath = new File(args[0].concat(".huff"));
 
-            byte [] buffer = toByteArray(file);
-            CollectFreq freq = new CollectFreq(buffer); // Build frequency table i.e two unsorted int arrays
-            int[] Q;
+        byte [] buffer = toByteArray(file);
+        CollectFreq freq = new CollectFreq(buffer); // Build frequency table i.e two unsorted int arrays
+        //int[] Q;
+        MinHeap Q = new MinHeap(freq.fchars.length);
+        for (int i = 0; i < freq.uchars.length; i++){
+            //System.out.println("U = " + Integer.toBinaryString(freq.uchars[i] & 0xFF)  + ", F = " + freq.fchars[i]);
+            Q.Heap[i] = new Node(freq.fchars[i], (char)freq.uchars[i]);
+            //String.format("%8s", Integer.toBinaryString(freq.uchars[i] & 0xFF)).replace(' ','0')
+        }
+        //Q = Huffman(freq);
 
-
-            for (int i = 0; i < freq.uchars.length; i++){
-                System.out.println("U = " + Integer.toBinaryString(freq.uchars[i] & 0xFF)  + ", F = " + freq.fchars[i]);
-                //String.format("%8s", Integer.toBinaryString(freq.uchars[i] & 0xFF)).replace(' ','0')
-            }
-            Q = Huffman(freq);
-
-            for (var i:Q
-                 ) {
-                System.out.println(i);
-            }
-
-
-
+        for (var i:Q.Heap
+        ) {
+            System.out.println(i.freq);
+            System.out.println(i.ch);
+        }
     }
 
     public static byte[] toByteArray(File file){
