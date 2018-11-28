@@ -3,9 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="034eb0ae-beb5-4036-b9cf-a3dbe6935f39" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/BinHeap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BinHeap.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/henc.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/henc.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test.txt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -76,8 +73,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/henc.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="9" lean-forward="true" selection-start-line="9" selection-end-line="9" />
+            <state relative-caret-position="360">
+              <caret line="24" column="27" lean-forward="true" selection-start-line="24" selection-start-column="27" selection-end-line="24" selection-end-column="27" />
             </state>
           </provider>
         </entry>
@@ -184,7 +181,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1543358081716" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1543411170845" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="RunDashboard">
@@ -216,7 +213,7 @@
       <workItem from="1542907317950" duration="11000" />
       <workItem from="1543028606908" duration="730000" />
       <workItem from="1543161697868" duration="3813000" />
-      <workItem from="1543254733010" duration="25528000" />
+      <workItem from="1543254733010" duration="26139000" />
     </task>
     <task id="LOCAL-00001" summary="nothing">
       <created>1541715289893</created>
@@ -267,11 +264,18 @@
       <option name="project" value="LOCAL" />
       <updated>1543342170885</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="MinHeapify Works!">
+      <created>1543411136526</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1543411136526</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="53698000" />
+    <option name="totallyTimeSpent" value="54309000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1131" y="28" width="1300" height="1404" extended-state="0" />
@@ -354,8 +358,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/henc.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" lean-forward="true" selection-start-line="9" selection-end-line="9" />
+        <state relative-caret-position="360">
+          <caret line="24" column="27" lean-forward="true" selection-start-line="24" selection-start-column="27" selection-end-line="24" selection-end-column="27" />
         </state>
       </provider>
     </entry>
