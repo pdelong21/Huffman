@@ -15,23 +15,16 @@ public class henc {
             X.Heap[i] = new Node(freq.fchars[i], (char)freq.uchars[i]);
             //String.format("%8s", Integer.toBinaryString(freq.uchars[i] & 0xFF)).replace(' ','0')
         }
-        for (var i:X.Heap
-        ) {
-            System.out.print(i.freq);
-            System.out.print(":");
-            System.out.println(i.ch);
-        }
-        System.out.println();
+
         X = Huffman(X);
 
+
         for (var i:X.Heap
         ) {
             System.out.print(i.freq);
             System.out.print(":");
             System.out.println(i.ch);
         }
-
-
     }
 
     public static byte[] toByteArray(File file){
@@ -53,37 +46,8 @@ public class henc {
 
     public static BinHeap Huffman(BinHeap X){
         X.BuildMinHeap(X);
+        X.InsertNode(new Node(1,'v'));
         return X;
     }
-/*
-    public static BinHeap BuildMinHeap(BinHeap Q, BinHeap X){
-        for (int i =(int)Math.floor(X.Heap.length/2.0); i>=1; i--){
-            Q = MinHeapify(Q, i);
 
-        }
-        return Q;
-    }
-    public static BinHeap MinHeapify(BinHeap Q, int i){
-        int left = i - 1, right = i + 1;
-        int min = FindMin(i, left, right, Q);
-        if (min != i){
-            Q = Swap(i, min, Q);
-            Q = MinHeapify(Q, i);
-        }
-        return Q;
-    }
-    public static int FindMin(int i, int left, int right, int[] Q){
-        if (Q[i] < Q[left] && Q[i] < Q[right]) return i;
-        if (Q[i] > Q[left] && Q[left] < Q[right]) return left;
-        if (Q[i] > Q[right] && Q[right] < Q[left]) return right;
-        return i; // By chance all the values are equal to one another
-
-    }
-    public static int[] Swap(int i, int min, int[] Q){
-        int swap = Q[i];
-        Q[i] = Q[min];
-        Q[min] = swap;
-        return Q;
-    }
-    */
 }

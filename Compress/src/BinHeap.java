@@ -30,8 +30,8 @@ public class BinHeap {
             return i;
         }
         if (X.Heap[i].freq < X.Heap[left].freq && X.Heap[i].freq < X.Heap[right].freq) return i;
-        if (X.Heap[i].freq > X.Heap[left].freq && X.Heap[left].freq < X.Heap[right].freq) return left;
-        if (X.Heap[i].freq > X.Heap[right].freq && X.Heap[right].freq < X.Heap[left].freq) return right;
+        if (X.Heap[i].freq > X.Heap[left].freq && X.Heap[left].freq <= X.Heap[right].freq) return left;
+        if (X.Heap[i].freq > X.Heap[right].freq && X.Heap[right].freq <= X.Heap[left].freq) return right;
         return i; // By chance all the values are equal to one another
 
 
@@ -42,5 +42,45 @@ public class BinHeap {
         X.Heap[i] = X.Heap[min];
         X.Heap[min] = swap;
         return X;
+    }
+
+    public Node ExtractMin(){
+        if(this.Heap.length < 1){
+            return null;
+        }
+        Node min = this.Heap[0];
+        this.Heap[0] = this.Heap[this.Heap.length - 1];
+        Node[] newHeap = new Node[this.Heap.length - 1];
+        for (int i = 0; i < this.Heap.length - 1; i++){
+            newHeap[i] = this.Heap[i];
+        }
+        this.Heap = newHeap;
+        this.MinHeapify(this, 0);
+        //System.out.println(this.Heap.length);
+        return min;
+    }
+
+    public void InsertNode(Node node){
+        Node[] newHeap = new Node[this.Heap.length + 1];
+        for (int j = 0; j < this.Heap.length; j++){
+            newHeap[j] = this.Heap[j];
+        }
+
+        int i = newHeap.length-1;
+        while((i>0) && newHeap[Parent(i)].freq > node.freq){
+            newHeap[i] = newHeap[Parent(i)];
+            i = Parent(i);
+        }
+        newHeap[i] = node;
+        this.Heap = newHeap;
+
+    }
+    private int Parent(int i){
+        if(i % 2 == 0){
+            i = (int)Math.floor((i/2.0)-1);
+            return i;
+        }
+        i = (int)Math.floor((i/2.0));
+        return i;
     }
 }
