@@ -15,16 +15,26 @@ public class henc {
             X.Heap[i] = new Node(freq.fchars[i], (char)freq.uchars[i]);
             //String.format("%8s", Integer.toBinaryString(freq.uchars[i] & 0xFF)).replace(' ','0')
         }
-
-        X = Huffman(X);
-
-
+        /*
         for (var i:X.Heap
         ) {
             System.out.print(i.freq);
             System.out.print(":");
             System.out.println(i.ch);
+            //  System.out.print(":");
+            //System.out.println(i.rep);
         }
+        */
+        X = Huffman(X);
+        for (var i:X.Heap
+        ) {
+            System.out.print(i.freq);
+            System.out.print(":");
+            System.out.println(i.ch);
+            //  System.out.print(":");
+            //System.out.println(i.rep);
+        }
+
     }
 
     public static byte[] toByteArray(File file){
@@ -45,8 +55,22 @@ public class henc {
     }
 
     public static BinHeap Huffman(BinHeap X){
+        // Build the MinHeap - Priority Queue
         X.BuildMinHeap(X);
-        X.InsertNode(new Node(1,'v'));
+
+        for (int i = 0; i < X.Heap.length - 1; i++){
+            i++;
+            Node z = new Node(0, '\u0000'); // Initialize new node
+            Node left = X.ExtractMin();
+            Node right = X.ExtractMin();
+            z.left = left;
+            z.right = right;
+            z.freq = left.freq + right.freq;
+            X.InsertNode(z);
+
+
+        }
+        //X.ExtractMin(); // Extract root of T
         return X;
     }
 
