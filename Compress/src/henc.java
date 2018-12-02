@@ -27,6 +27,8 @@ public class henc {
         }
         */
         Node T = Huffman(X); // Build Huffman Tree, returns root node of the tree...
+
+        PostOrder(T);
         System.out.println(T.freq);
         Node trav = T.left;
         while(trav != null){
@@ -45,6 +47,14 @@ public class henc {
             //System.out.println(i.rep);
         }
         */
+
+    }
+
+    public static void PostOrder(Node T){
+        if(T == null) return;
+        PostOrder(T.left);
+        PostOrder(T.right);
+        if(T.ch != '\u0000') System.out.println(T.ch);
 
     }
 
