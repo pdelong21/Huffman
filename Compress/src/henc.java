@@ -2,17 +2,18 @@ import java.io.*;
 
 public class henc {
     public static void main(String[] args){
-        File file = new File(args[0]);
-        File toPath = new File(args[0].concat(".huff"));
+        File target = new File(args[0]);  // This is the target file to compress
+        File target_out = new File(args[0].concat(".huff"));
 
-        byte [] buffer = toByteArray(file);
+        byte [] buffer = toByteArray(target);   // Read file into a byte array
         CollectFreq freq = new CollectFreq(buffer); // Build frequency table i.e two unsorted int arrays
 
-        // Construct Bin Heap, really just an array of nodes
-        BinHeap X = new BinHeap(freq.fchars.length);
+        BinHeap X = new BinHeap(freq.fchars.length); // Construct Bin Heap
         for (int i = 0; i < freq.uchars.length; i++){
             //System.out.println("U = " + Integer.toBinaryString(freq.uchars[i] & 0xFF)  + ", F = " + freq.fchars[i]);
-            X.Heap[i] = new Node(freq.fchars[i], (char)freq.uchars[i]);
+            X.Heap[i] = new Node(); // Allocate node
+            X.Heap[i].freq = freq.fchars[i]; // Set node freq
+            X.Heap[i].ch = (char)freq.uchars[i]; // Set node character
             //String.format("%8s", Integer.toBinaryString(freq.uchars[i] & 0xFF)).replace(' ','0')
         }
         /*
@@ -25,7 +26,16 @@ public class henc {
             //System.out.println(i.rep);
         }
         */
-        X = Huffman(X);
+        Node T = Huffman(X); // Build Huffman Tree, returns root node of the tree...
+        System.out.println(T.freq);
+        Node trav = T.left;
+        while(trav != null){
+            System.out.print(trav.freq);
+            System.out.print(":");
+            System.out.println(trav.ch);
+            trav = trav.right;
+        }
+        /*
         for (var i:X.Heap
         ) {
             System.out.print(i.freq);
@@ -34,15 +44,15 @@ public class henc {
             //  System.out.print(":");
             //System.out.println(i.rep);
         }
+        */
 
     }
 
     public static byte[] toByteArray(File file){
-        byte[] barray = new byte[(int) file.length()];
-
+        byte[] barray = new byte[(int) file.length()]; // Buffer
         try{
-            FileInputStream is = new FileInputStream(file);
-            is.read(barray);
+            FileInputStream is = new FileInputStream(file); // Create an input stream
+            is.read(barray); // Read the file into the buffer
             is.close();
 
         } catch(FileNotFoundException e){
@@ -54,24 +64,19 @@ public class henc {
 
     }
 
-    public static BinHeap Huffman(BinHeap X){
+    public static Node Huffman(BinHeap X){
         // Build the MinHeap - Priority Queue
         X.BuildMinHeap(X);
-
-        for (int i = 0; i < X.Heap.length - 1; i++){
-            i++;
-            Node z = new Node(0, '\u0000'); // Initialize new node
+        while(X.Heap.length != 1){
+            Node z = new Node(); // Initialize new node
             Node left = X.ExtractMin();
             Node right = X.ExtractMin();
             z.left = left;
             z.right = right;
             z.freq = left.freq + right.freq;
             X.InsertNode(z);
-
-
         }
-        //X.ExtractMin(); // Extract root of T
-        return X;
+        return X.ExtractMin();
     }
 
 }
