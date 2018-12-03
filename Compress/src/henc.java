@@ -27,9 +27,8 @@ public class henc {
         }
         */
         Node T = Huffman(X); // Build Huffman Tree, returns root node of the tree...
-
-        PostOrder(T);
-        System.out.println(T.freq);
+        PostOrder(T, 'e');
+        //System.out.println(T.freq);
         Node trav = T.left;
         while(trav != null){
             System.out.print(trav.freq);
@@ -50,12 +49,19 @@ public class henc {
 
     }
 
-    public static void PostOrder(Node T){
-        if(T == null) return;
-        PostOrder(T.left);
-        PostOrder(T.right);
-        if(T.ch != '\u0000') System.out.println(T.ch);
+    public static void PostOrder(Node T, char ch){
+        if(T == null ) {
+            return ;
+        }
+        System.out.print(0);
+        PostOrder(T.left, ch);
 
+        if(Character.isAlphabetic(T.ch)){
+            System.out.println(T.ch);
+        }else {
+            System.out.print(1);
+            PostOrder(T.right, ch);
+        }
     }
 
     public static byte[] toByteArray(File file){

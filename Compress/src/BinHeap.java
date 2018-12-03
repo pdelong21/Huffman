@@ -74,13 +74,15 @@ public class BinHeap {
         return min; // return the min node
     }
 
+
     public void InsertNode(Node node){
-        Node[] newHeap = new Node[this.Heap.length + 1];
+        Node[] newHeap = new Node[this.Heap.length + 1]; // New heap with size + 1 for new node
+        // Copy old elements into new array
         for (int j = 0; j < this.Heap.length; j++){
             newHeap[j] = this.Heap[j];
         }
 
-        int i = newHeap.length-1;
+        int i = newHeap.length-1; // insert from bottom -> top
         while((i>1) && newHeap[Parent(i)].freq > node.freq){
             newHeap[i] = newHeap[Parent(i)];
             i = Parent(i);
@@ -90,10 +92,12 @@ public class BinHeap {
 
     }
     private int Parent(int i){
+        // On the right branch of the parent
         if(i % 2 == 0){
             i = (int)Math.floor((i/2.0)-1);
             return i;
         }
+        // On the left branch of the parent
         i = (int)Math.floor((i/2.0));
         return i;
     }
