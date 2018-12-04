@@ -1,6 +1,7 @@
 import java.io.*;
 import java.nio.ByteBuffer;
 import java.util.LinkedList;
+import java.util.Stack;
 
 public class henc {
     static LinkedList<Node> prefixes = new LinkedList<>(); // Use this to pushback leaf nodes after there prefixes have been set
@@ -21,31 +22,47 @@ public class henc {
         // Now lets encode into a new file
         Encode(buffer, target_out);
 
-
+        /*
         for (var i: prefixes
              ) {
-            System.out.println(pfix[i.ch].pfix + ":" + (char)pfix[i.ch].ch);
+            System.out.print(pfix[i.ch].pfix);
+            System.out.print(":");
+            System.out.println((char)pfix[i.ch].ch);
         }
+        */
+
 
 
     }
     private static void Encode(byte[] buffer, String t_out){
-        String enc_data = "";
-        int lengthofbits = 0;
+        int enc_data_size = 0;
+        int length_to_store = 0;
+        Stack<String> strings = new Stack<>();
+        StringBuilder stringBuilder = new StringBuilder();
 
-        // build string of 0's and 1's according to the char prefixes
-        for (var b:buffer
-             ) {
-            enc_data = enc_data.concat(pfix[Byte.toUnsignedInt(b)].pfix);
+        // push onto a stack in reverse order so when we pop its in order
+        for(int i = buffer.length-1; i >=0; i--){
+            //enc_data = enc_data.concat(pfix[Byte.toUnsignedInt(b)].pfix);
+            strings.push(pfix[Byte.toUnsignedInt(buffer[i])].pfix);
         }
-        lengthofbits = enc_data.length(); // the mark of the last bit that matters
+        // calculate the size of the string that we need
+        for (var i:strings
+             ) {
+            enc_data_size += i.length();
+        }
+        while(!strings.empty()){
+            stringBuilder.append(strings.pop());
+        }
+
+        length_to_store = stringBuilder.length(); // the mark of the last bit that matters
 
         // fill the rest of the last byte if it is not divisible by 8
-        while(enc_data.length()%8 != 0){
-            enc_data = enc_data.concat("0");
+        System.out.println("here");
+        while(stringBuilder.length()%8 != 0){
+            stringBuilder.append("0");
         }
-        ByteBuffer bbuf = ByteBuffer.allocate(4 + (pfix.length*4) + (enc_data.length()/8));
-        bbuf.putInt(lengthofbits); // First 4 bytes is the int that marks where to stop
+        ByteBuffer bbuf = ByteBuffer.allocate(4 + (pfix.length*4) + (stringBuilder.length()/8));
+        bbuf.putInt(length_to_store); // First 4 bytes is the int that marks where to stop
         // fill in the 0 --> 255 character frequencies so we can decompress
         for (var n:pfix
              ) {
@@ -53,7 +70,7 @@ public class henc {
             else bbuf.putInt(n.freq);
         }
         // split string into 8 bit chunks of data
-        String[] sarray = SArray(enc_data);
+        String[] sarray = SArray(stringBuilder);
 
         // put each byte into the buffer that has the encoded data
         for (var s:sarray
@@ -74,11 +91,12 @@ public class henc {
         try{
             FileOutputStream fo = new FileOutputStream(t_file);
             fo.write(buffer);
+            fo.close();
         } catch (Exception e){
             System.out.println(e.getMessage());
         }
     }
-    private static String[] SArray(String s){
+    private static String[] SArray(StringBuilder s){
         String[] a = new String[s.length()/8];
         int j = 0;
         for (int i= 0; i<s.length(); i++){
@@ -118,6 +136,10 @@ public class henc {
         // We hit a leaf
         child.pfix = Parent.pfix.concat(child.pfix);
         if(child.ch != '\u0000') {
+            pfix[child.ch] = child;
+            prefixes.add(child);
+        }
+        else if(child.left == null && child.right == null){
             pfix[child.ch] = child;
             prefixes.add(child);
         }
