@@ -1,6 +1,6 @@
 import java.io.*;
+import java.nio.ByteBuffer;
 import java.util.LinkedList;
-import java.util.Stack;
 
 public class henc {
     static LinkedList<Node> prefixes = new LinkedList<>(); // Use this to pushback leaf nodes after there prefixes have been set
@@ -8,25 +8,20 @@ public class henc {
     public static void main(String[] args){
 
         File target = new File(args[0]);  // This is the target file to compress
-        File target_out = new File(args[0].concat(".huff"));
+        String target_out = (args[0].concat(".huff"));
 
         byte [] buffer = toByteArray(target);   // Read file into a byte array
         CollectFreq freq = new CollectFreq(buffer); // Build frequency table i.e two unsorted int arrays
-        BinHeap X = new BinHeap(GetLength(freq)); // Allocate Bin Heap
-        InsertNodes(X, freq);
-        /*
-        for (var i:X.Heap
-        ) {
-            System.out.print(i.freq);
-            System.out.print(":");
-            System.out.println(i.ch);
-            //  System.out.print(":");
-            //System.out.println(i.rep);
-        }
-        */
+        BinHeap X = new BinHeap(GetLength(freq)); // Allocate Bin Heap space
+        InsertNodes(X, freq); // Insert nodes from freq array to the binary heap
         Node T = Huffman(X); // Build Huffman Tree, returns root node of the tree...
         ChangePfix(T, T.left); // Set the overall path of the left side of the tree to get to the leaf nodes
         ChangePfix(T, T.right); // Set the overall path of the right side of the tree to get to the leaf nodes
+
+        // Now lets encode into a new file
+        Encode(buffer, target_out);
+
+
         for (var i: prefixes
              ) {
             System.out.println(pfix[i.ch].pfix + ":" + (char)pfix[i.ch].ch);
@@ -34,7 +29,66 @@ public class henc {
 
 
     }
+    private static void Encode(byte[] buffer, String t_out){
+        String enc_data = "";
+        int lengthofbits = 0;
 
+        // build string of 0's and 1's according to the char prefixes
+        for (var b:buffer
+             ) {
+            enc_data = enc_data.concat(pfix[Byte.toUnsignedInt(b)].pfix);
+        }
+        lengthofbits = enc_data.length(); // the mark of the last bit that matters
+
+        // fill the rest of the last byte if it is not divisible by 8
+        while(enc_data.length()%8 != 0){
+            enc_data = enc_data.concat("0");
+        }
+        ByteBuffer bbuf = ByteBuffer.allocate(4 + (pfix.length*4) + (enc_data.length()/8));
+        bbuf.putInt(lengthofbits); // First 4 bytes is the int that marks where to stop
+        // fill in the 0 --> 255 character frequencies so we can decompress
+        for (var n:pfix
+             ) {
+            if(n==null) bbuf.putInt(0);
+            else bbuf.putInt(n.freq);
+        }
+        // split string into 8 bit chunks of data
+        String[] sarray = SArray(enc_data);
+
+        // put each byte into the buffer that has the encoded data
+        for (var s:sarray
+             ) {
+            int rep = Integer.parseInt(s,2);
+            byte b = (byte) rep;
+            bbuf.put(b);
+        }
+        bbuf.flip();
+        byte[] ba = new byte[bbuf.remaining()];
+        bbuf.get(ba);
+        // write out to file now
+        WriteOut(t_out, ba);
+
+    }
+
+    private static void WriteOut(String t_file, byte[] buffer){
+        try{
+            FileOutputStream fo = new FileOutputStream(t_file);
+            fo.write(buffer);
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+    private static String[] SArray(String s){
+        String[] a = new String[s.length()/8];
+        int j = 0;
+        for (int i= 0; i<s.length(); i++){
+            if((i+1)%8 == 0){
+                a[j] = s.substring(i-7,i+1);
+                j++;
+            }
+        }
+        return a;
+    }
     private static int GetLength(CollectFreq freq){
         int i = 0;
         for (var f:freq.uchars
@@ -55,49 +109,10 @@ public class henc {
                 X.Heap[j].ch = i;
                 j++;
             }
-            //X.Heap[i] = new Node(); // Allocate node
-            //X.Heap[i].freq = freq.fchars[i]; // Set node freq
-            //X.Heap[i].ch = freq.uchars[i]; // Set node character
-            //String.format("%8s", Integer.toBinaryString(freq.uchars[i] & 0xFF)).replace(' ','0')
+
         }
     }
-    /*
-    public static void printd(Node t, char ch) {
 
-
-        if (t.ch == ch) {
-            System.out.println(t.ch);
-            return;
-        }
-
-        System.out.println("awed");
-        if (t.left != null){
-           // System.out.print("0");
-            printd(t.left, ch);
-         }
-        if(t.right != null){
-        //System.out.print("1");
-        printd(t.right, ch);
-        }
-
-    }
-
-    private static void Print(Node T){
-        if(T == null){
-            return;
-        }
-        if(T.ch == '\u0000'){
-            System.out.print(T.pfix);
-        }
-        else{
-            System.out.println(T.pfix + T.ch);
-        }
-        Print(T.left);
-
-        Print(T.right);
-
-    }
-    */
 
     private static void ChangePfix(Node Parent, Node child){
         // We hit a leaf
@@ -114,8 +129,6 @@ public class henc {
         if(child.right != null){
             ChangePfix(child, child.right);
         }
-
-
 
     }
 

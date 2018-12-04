@@ -6,3 +6,50 @@
                 oi.write(String.format("%8s", Integer.toBinaryString(buffer[i] & 0xFF)).replace(' ','0').getBytes());
             }
             oi.close();
+
+
+
+
+
+                /*
+                public static void printd(Node t, char ch) {
+
+
+                    if (t.ch == ch) {
+                        System.out.println(t.ch);
+                        return;
+                    }
+
+                    System.out.println("awed");
+                    if (t.left != null){
+                       // System.out.print("0");
+                        printd(t.left, ch);
+                     }
+                    if(t.right != null){
+                    //System.out.print("1");
+                    printd(t.right, ch);
+                    }
+
+                }
+
+                private static void Print(Node T){
+                    if(T == null){
+                        return;
+                    }
+                    if(T.ch == '\u0000'){
+                        System.out.print(T.pfix);
+                    }
+                    else{
+                        System.out.println(T.pfix + T.ch);
+                    }
+                    Print(T.left);
+
+                    Print(T.right);
+
+                }
+                */
+
+                            //X.Heap[i] = new Node(); // Allocate node
+                            //X.Heap[i].freq = freq.fchars[i]; // Set node freq
+                            //X.Heap[i].ch = freq.uchars[i]; // Set node character
+                            //String.format("%8s", Integer.toBinaryString(freq.uchars[i] & 0xFF)).replace(' ','0')

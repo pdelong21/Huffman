@@ -1,5 +1,5 @@
 public class Node {
-    int freq;
+    int freq=0;
     int ch;
     Node left = null;
     Node right = null;
