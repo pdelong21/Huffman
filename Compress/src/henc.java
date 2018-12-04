@@ -19,7 +19,7 @@ public class henc {
         ChangePfix(T, T.right); // Set the overall path of the right side of the tree to get to the leaf nodes
 
         // Now lets encode into a new file
-        Encode(buffer, target_out);
+        //Encode(buffer, target_out);
 
 
         for (var i: prefixes
