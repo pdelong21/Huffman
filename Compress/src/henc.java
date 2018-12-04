@@ -1,7 +1,11 @@
 import java.io.*;
+import java.util.LinkedList;
+import java.util.Stack;
 
 public class henc {
+    static LinkedList<Node> prefixes = new LinkedList<>();
     public static void main(String[] args){
+
         File target = new File(args[0]);  // This is the target file to compress
         File target_out = new File(args[0].concat(".huff"));
 
@@ -27,41 +31,68 @@ public class henc {
         }
         */
         Node T = Huffman(X); // Build Huffman Tree, returns root node of the tree...
-        PostOrder(T, 'e');
-        //System.out.println(T.freq);
-        Node trav = T.left;
-        while(trav != null){
-            System.out.print(trav.freq);
-            System.out.print(":");
-            System.out.println(trav.ch);
-            trav = trav.right;
+        ChangePfix(T, T.left);
+        ChangePfix(T, T.right);
+        for (var i: prefixes
+             ) {
+            System.out.println(i.pfix + ":" + i.ch);
         }
-        /*
-        for (var i:X.Heap
-        ) {
-            System.out.print(i.freq);
-            System.out.print(":");
-            System.out.println(i.ch);
-            //  System.out.print(":");
-            //System.out.println(i.rep);
+
+
+    }
+    /*
+    public static void printd(Node t, char ch) {
+
+
+        if (t.ch == ch) {
+            System.out.println(t.ch);
+            return;
         }
-        */
+
+        System.out.println("awed");
+        if (t.left != null){
+           // System.out.print("0");
+            printd(t.left, ch);
+         }
+        if(t.right != null){
+        //System.out.print("1");
+        printd(t.right, ch);
+        }
 
     }
 
-    public static void PostOrder(Node T, char ch){
-        if(T == null ) {
-            return ;
+    private static void Print(Node T){
+        if(T == null){
+            return;
         }
-        System.out.print(0);
-        PostOrder(T.left, ch);
+        if(T.ch == '\u0000'){
+            System.out.print(T.pfix);
+        }
+        else{
+            System.out.println(T.pfix + T.ch);
+        }
+        Print(T.left);
 
-        if(Character.isAlphabetic(T.ch)){
-            System.out.println(T.ch);
-        }else {
-            System.out.print(1);
-            PostOrder(T.right, ch);
+        Print(T.right);
+
+    }
+    */
+
+    private static void ChangePfix(Node Parent, Node child){
+        // We hit a leaf
+        child.pfix = Parent.pfix.concat(child.pfix);
+        if(child.ch != '\u0000') prefixes.add(child);
+
+
+        if(child.left != null){
+            ChangePfix(child, child.left);
         }
+        if(child.right != null){
+            ChangePfix(child, child.right);
+        }
+
+
+
     }
 
     public static byte[] toByteArray(File file){
@@ -86,7 +117,9 @@ public class henc {
         while(X.Heap.length != 1){
             Node z = new Node(); // Initialize new node
             Node left = X.ExtractMin();
+            left.pfix = left.pfix.concat("0");
             Node right = X.ExtractMin();
+            right.pfix = right.pfix.concat("1");
             z.left = left;
             z.right = right;
             z.freq = left.freq + right.freq;

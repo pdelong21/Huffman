@@ -45,8 +45,6 @@ public class BinHeap {
         if (X.Heap[i].freq > X.Heap[right].freq && X.Heap[right].freq < X.Heap[left].freq) return right;
         return i; // By chance all the values are equal to one another return the parent
 
-
-
     }
 
     // Simple swap of nodes
