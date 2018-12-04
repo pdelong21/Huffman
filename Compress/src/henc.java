@@ -52,6 +52,7 @@ public class henc {
             if(n==null) bbuf.putInt(0);
             else bbuf.putInt(n.freq);
         }
+        // added
         // split string into 8 bit chunks of data
         String[] sarray = SArray(enc_data);
 
