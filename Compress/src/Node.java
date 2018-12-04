@@ -1,6 +1,6 @@
 public class Node {
     int freq;
-    char ch;
+    int ch;
     Node left = null;
     Node right = null;
     String pfix = "";

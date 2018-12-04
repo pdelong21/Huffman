@@ -7,6 +7,7 @@ public class CollectFreq {
 
     private int[] GetUniqueChars(byte[] buffer){
         int[] unique = new int[256]; // will be in the worst case no unique chars...unlikely
+        /*
         int[] freq = new int[256]; // worst case we need a place for every ascii character
 
         int j = 0; // our counter for inserting unique characters
@@ -26,6 +27,13 @@ public class CollectFreq {
         }
         this.fchars = Trim(freq);
         return Trim(unique);
+        */
+        for (var b: buffer
+             ) {
+            int value = Byte.toUnsignedInt(b);
+            unique[value]++;
+        }
+        return unique;
     }
     private  int CharInArray(int target, int[] CheckIn){
         for (int i = 0; i < CheckIn.length; i++){
