@@ -117,7 +117,6 @@ public class hdec_2200 {
     private static void InsertNodes(BinHeap_2200 X, CollectFreq_2200 freq){
         int j = 0;
         for (int i = 0; i < freq.uchars.length; i++){
-            //System.out.println("U = " + Integer.toBinaryString(freq.uchars[i] & 0xFF)  + ", F = " + freq.fchars[i]);
             if(freq.uchars[i] > 0){
                 X.Heap[j] = new HNode_2200();
                 X.Heap[j].freq = freq.uchars[i];
