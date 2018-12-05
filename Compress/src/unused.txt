@@ -53,3 +53,26 @@
                             //X.Heap[i].freq = freq.fchars[i]; // Set node freq
                             //X.Heap[i].ch = freq.uchars[i]; // Set node character
                             //String.format("%8s", Integer.toBinaryString(freq.uchars[i] & 0xFF)).replace(' ','0')
+
+                                private  int CharInArray(int target, int[] CheckIn){
+                                    for (int i = 0; i < CheckIn.length; i++){
+                                        if (target == CheckIn[i]){
+                                            return i; // return the index if its already in the array
+                                        }
+                                    }
+                                    return -1; // index will always return positive so this means nothing was found
+                                }
+                                // Will look for the first null value and then trim by keeping everything before the first null occurrence
+                                private int[] Trim(int[] targetArray){
+                                    int size = 0;
+                                    while(size < targetArray.length){
+                                        if(targetArray[size] != 0) size++;
+                                        else break;
+                                    }
+                                    int[] TrimmedArray = new int[size];
+                                    for (int i = 0; i < TrimmedArray.length; i++){
+                                        TrimmedArray[i] = targetArray[i];
+                                    }
+                                    return TrimmedArray;
+
+                                }

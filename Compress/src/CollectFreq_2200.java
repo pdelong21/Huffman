@@ -12,7 +12,7 @@ public class CollectFreq_2200 {
             for (var b: buffer
             ) {
                 int value = Byte.toUnsignedInt(b);
-                unique[value]++;
+                unique[value]++; // value is the index and the actual value of at the index is the frequency
             }
             return unique;
 
@@ -21,26 +21,5 @@ public class CollectFreq_2200 {
         }
 
     }
-    private  int CharInArray(int target, int[] CheckIn){
-        for (int i = 0; i < CheckIn.length; i++){
-            if (target == CheckIn[i]){
-                return i; // return the index if its already in the array
-            }
-        }
-        return -1; // index will always return positive so this means nothing was found
-    }
-    // Will look for the first null value and then trim by keeping everything before the first null occurrence
-    private int[] Trim(int[] targetArray){
-        int size = 0;
-        while(size < targetArray.length){
-            if(targetArray[size] != 0) size++;
-            else break;
-        }
-        int[] TrimmedArray = new int[size];
-        for (int i = 0; i < TrimmedArray.length; i++){
-            TrimmedArray[i] = targetArray[i];
-        }
-        return TrimmedArray;
 
-    }
 }
