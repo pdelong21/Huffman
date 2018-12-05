@@ -12,7 +12,7 @@
 
 
                 /*
-                public static void printd(Node t, char ch) {
+                public static void printd(HNode_2200 t, char ch) {
 
 
                     if (t.ch == ch) {
@@ -32,7 +32,7 @@
 
                 }
 
-                private static void Print(Node T){
+                private static void Print(HNode_2200 T){
                     if(T == null){
                         return;
                     }
@@ -49,7 +49,7 @@
                 }
                 */
 
-                            //X.Heap[i] = new Node(); // Allocate node
+                            //X.Heap[i] = new HNode_2200(); // Allocate node
                             //X.Heap[i].freq = freq.fchars[i]; // Set node freq
                             //X.Heap[i].ch = freq.uchars[i]; // Set node character
                             //String.format("%8s", Integer.toBinaryString(freq.uchars[i] & 0xFF)).replace(' ','0')

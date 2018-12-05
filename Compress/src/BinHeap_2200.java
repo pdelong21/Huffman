@@ -1,9 +1,11 @@
-public class BinHeap {
-    Node[] Heap; // Array of node objects
-    public BinHeap(int hsize) {this.Heap = new Node[hsize];} // Just requires an initial size for array
+/* PATRICK DELONG cs435 2200 mp */
+
+public class BinHeap_2200 {
+    HNode_2200[] Heap; // Array of node objects
+    public BinHeap_2200(int hsize) {this.Heap = new HNode_2200[hsize];} // Just requires an initial size for array
 
     // Build Binary Heap
-    public  BinHeap BuildMinHeap(BinHeap X){
+    public BinHeap_2200 BuildMinHeap(BinHeap_2200 X){
         for (int i =(int)Math.floor(X.Heap.length/2.0); i>=0; i--){
             MinHeapify(X, i);
         }
@@ -11,7 +13,7 @@ public class BinHeap {
     }
 
     // Min heapify function
-    public  BinHeap MinHeapify(BinHeap X, int i){
+    public BinHeap_2200 MinHeapify(BinHeap_2200 X, int i){
         // If at the leaf nodes stop
         if(i > X.Heap.length/2){
             return X;
@@ -25,7 +27,7 @@ public class BinHeap {
         }
         return X;
     }
-    public  int FindMin(int i, int left, int right, BinHeap X){
+    public  int FindMin(int i, int left, int right, BinHeap_2200 X){
         // Check if the left & right children are out of bounds
         if(right >= X.Heap.length && left < X.Heap.length){
             // If the left child is not out of bounds compare it and return the min
@@ -48,21 +50,21 @@ public class BinHeap {
     }
 
     // Simple swap of nodes
-    public BinHeap Swap(int i, int min, BinHeap X){
-        Node swap = X.Heap[i];
+    public BinHeap_2200 Swap(int i, int min, BinHeap_2200 X){
+        HNode_2200 swap = X.Heap[i];
         X.Heap[i] = X.Heap[min];
         X.Heap[min] = swap;
         return X;
     }
 
-    public Node ExtractMin(){
+    public HNode_2200 ExtractMin(){
         // If there isn't anything to extract return null
         if(this.Heap.length < 1){
             return null;
         }
-        Node min = this.Heap[0]; // Copy the min node
+        HNode_2200 min = this.Heap[0]; // Copy the min node
         this.Heap[0] = this.Heap[this.Heap.length - 1]; // Make the end node the top
-        Node[] newHeap = new Node[this.Heap.length - 1]; // Make a new array
+        HNode_2200[] newHeap = new HNode_2200[this.Heap.length - 1]; // Make a new array
         // Copy the values of the old array up until the end of the new array
         for (int i = 0; i < this.Heap.length - 1; i++){
             newHeap[i] = this.Heap[i];
@@ -73,8 +75,8 @@ public class BinHeap {
     }
 
 
-    public void InsertNode(Node node){
-        Node[] newHeap = new Node[this.Heap.length + 1]; // New heap with size + 1 for new node
+    public void InsertNode(HNode_2200 node){
+        HNode_2200[] newHeap = new HNode_2200[this.Heap.length + 1]; // New heap with size + 1 for new node
         // Copy old elements into new array
         for (int j = 0; j < this.Heap.length; j++){
             newHeap[j] = this.Heap[j];

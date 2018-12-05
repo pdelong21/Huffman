@@ -1,26 +1,28 @@
+/* PATRICK DELONG cs435 2200 mp */
+
 import java.io.*;
 import java.nio.ByteBuffer;
 import java.util.LinkedList;
 import java.util.Stack;
 
-public class henc {
-    static LinkedList<Node> prefixes = new LinkedList<>(); // Use this to pushback leaf nodes after there prefixes have been set
-    static Node[] pfix = new Node[256]; // Insert the nodes back into a node array with the (int)char as there index
+public class henc_2200 {
+    static LinkedList<HNode_2200> prefixes = new LinkedList<>(); // Use this to pushback leaf nodes after there prefixes have been set
+    static HNode_2200[] pfix = new HNode_2200[256]; // Insert the nodes back into a node array with the (int)char as there index
     public static void main(String[] args){
 
         File target = new File(args[0]);  // This is the target file to compress
         String target_out = (args[0].concat(".huff"));
 
         byte [] buffer = toByteArray(target);   // Read file into a byte array
-        CollectFreq freq = new CollectFreq(buffer); // Build frequency table i.e two unsorted int arrays
-        BinHeap X = new BinHeap(GetLength(freq)); // Allocate Bin Heap space
+        CollectFreq_2200 freq = new CollectFreq_2200(buffer, false, null); // Build frequency table i.e two unsorted int arrays
+        BinHeap_2200 X = new BinHeap_2200(GetLength(freq)); // Allocate Bin Heap space
         InsertNodes(X, freq); // Insert nodes from freq array to the binary heap
-        Node T = Huffman(X); // Build Huffman Tree, returns root node of the tree...
+        HNode_2200 T = Huffman(X); // Build Huffman Tree, returns root node of the tree...
         ChangePfix(T, T.left); // Set the overall path of the left side of the tree to get to the leaf nodes
         ChangePfix(T, T.right); // Set the overall path of the right side of the tree to get to the leaf nodes
 
         // Now lets encode into a new file
-        //Encode(buffer, target_out);
+        Encode(buffer, target_out);
 
         /*
         for (var i: prefixes
@@ -57,7 +59,6 @@ public class henc {
         length_to_store = stringBuilder.length(); // the mark of the last bit that matters
 
         // fill the rest of the last byte if it is not divisible by 8
-        System.out.println("here");
         while(stringBuilder.length()%8 != 0){
             stringBuilder.append("0");
         }
@@ -108,7 +109,7 @@ public class henc {
         }
         return a;
     }
-    private static int GetLength(CollectFreq freq){
+    private static int GetLength(CollectFreq_2200 freq){
         int i = 0;
         for (var f:freq.uchars
              ) {
@@ -118,12 +119,12 @@ public class henc {
         }
         return i;
     }
-    private static void InsertNodes(BinHeap X, CollectFreq freq){
+    private static void InsertNodes(BinHeap_2200 X, CollectFreq_2200 freq){
         int j = 0;
         for (int i = 0; i < freq.uchars.length; i++){
             //System.out.println("U = " + Integer.toBinaryString(freq.uchars[i] & 0xFF)  + ", F = " + freq.fchars[i]);
             if(freq.uchars[i] > 0){
-                X.Heap[j] = new Node();
+                X.Heap[j] = new HNode_2200();
                 X.Heap[j].freq = freq.uchars[i];
                 X.Heap[j].ch = i;
                 j++;
@@ -133,7 +134,7 @@ public class henc {
     }
 
 
-    private static void ChangePfix(Node Parent, Node child){
+    private static void ChangePfix(HNode_2200 Parent, HNode_2200 child){
         // We hit a leaf
         child.pfix = Parent.pfix.concat(child.pfix);
         if(child.ch != '\u0000') {
@@ -171,14 +172,14 @@ public class henc {
 
     }
 
-    public static Node Huffman(BinHeap X){
+    public static HNode_2200 Huffman(BinHeap_2200 X){
         // Build the MinHeap - Priority Queue
         X.BuildMinHeap(X);
         while(X.Heap.length != 1){
-            Node z = new Node(); // Initialize new node, parent
-            Node left = X.ExtractMin(); // left child
+            HNode_2200 z = new HNode_2200(); // Initialize new node, parent
+            HNode_2200 left = X.ExtractMin(); // left child
             left.pfix = left.pfix.concat("0");
-            Node right = X.ExtractMin(); // right child
+            HNode_2200 right = X.ExtractMin(); // right child
             right.pfix = right.pfix.concat("1");
             z.left = left; // connect
             z.right = right;// connect
