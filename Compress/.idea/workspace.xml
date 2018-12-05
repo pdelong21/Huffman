@@ -2,18 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="034eb0ae-beb5-4036-b9cf-a3dbe6935f39" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/CollectFreq_2200.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/hdec_2200.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/BinHeap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BinHeap_2200.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CollectFreq.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/CollectFreq.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CollectFreq.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Node.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/HNode_2200.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/henc.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/henc_2200.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test.txt.huff" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test.txt.zip" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/unused.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/unused.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CollectFreq.class" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -88,8 +78,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/henc_2200.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="126">
-              <caret line="7" column="22" selection-start-line="7" selection-start-column="22" selection-end-line="7" selection-end-column="22" />
+            <state relative-caret-position="468">
+              <caret line="53" column="9" lean-forward="true" selection-start-line="53" selection-start-column="9" selection-end-line="53" selection-end-column="9" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -179,7 +169,7 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds" extendedState="4">
-    <option name="x" value="80" />
+    <option name="x" value="1059" />
     <option name="y" value="27" />
     <option name="width" value="1677" />
     <option name="height" value="1413" />
@@ -213,7 +203,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1543982814225" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1543983297153" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="SDKs" />
     <property name="project.structure.proportion" value="0.15" />
@@ -258,7 +248,7 @@
       <workItem from="1543952806398" duration="162000" />
       <workItem from="1543952987305" duration="99000" />
       <workItem from="1543953277910" duration="345000" />
-      <workItem from="1543954848639" duration="20962000" />
+      <workItem from="1543954848639" duration="22020000" />
     </task>
     <task id="LOCAL-00001" summary="nothing">
       <created>1541715289893</created>
@@ -372,23 +362,30 @@
       <option name="project" value="LOCAL" />
       <updated>1543965887022</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="compresses all files">
+      <created>1543982865056</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1543982865056</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="135850000" />
+    <option name="totallyTimeSpent" value="136908000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="80" y="27" width="1677" height="1413" extended-state="4" />
+    <frame x="1059" y="27" width="1677" height="1413" extended-state="4" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49883085" visible="true" weight="0.123237275" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49883085" visible="true" weight="0.123237275" />
       <window_info id="Structure" order="1" sideWeight="0.5005807" side_tool="true" weight="0.1218769" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Image Layers" order="3" />
       <window_info id="Designer" order="4" />
       <window_info id="UI Designer" order="5" />
-      <window_info id="Favorites" order="6" sideWeight="0.50116915" side_tool="true" visible="true" weight="0.123237275" />
+      <window_info active="true" id="Favorites" order="6" sideWeight="0.50116915" side_tool="true" visible="true" weight="0.123237275" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32969603" />
       <window_info anchor="bottom" id="Run" order="2" />
@@ -512,8 +509,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/henc_2200.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="7" column="22" selection-start-line="7" selection-start-column="22" selection-end-line="7" selection-end-column="22" />
+        <state relative-caret-position="468">
+          <caret line="53" column="9" lean-forward="true" selection-start-line="53" selection-start-column="9" selection-end-line="53" selection-end-column="9" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
