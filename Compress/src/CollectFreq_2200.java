@@ -12,7 +12,7 @@ public class CollectFreq_2200 {
             for (var b: buffer
             ) {
                 int value = Byte.toUnsignedInt(b);
-                unique[value]++; // value is the index and the actual value of at the index is the frequency
+                unique[value]++; // ASCI character is the index and the actual value at the index is the frequency
             }
             return unique;
 
